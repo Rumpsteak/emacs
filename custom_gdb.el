@@ -1,6 +1,8 @@
 ;; So, all we need to do now is to split the buffers properly.
 ;; What is the difference between buffers and windows?
 
+(defvar gdb-frame2 nil)
+
 (defun my-gdb-setup-windows ()
   "Adapted from `gdb-setup-windows'."
   (gdb-display-locals-buffer)
@@ -31,40 +33,42 @@
   (gdb-set-window-buffer (gdb-stack-buffer-name))
 
   ;;; Frame 2 ;;;
-  (let (frame2 frame2-params win)
-    (setq frame2-params '((name . "Hund")
-                          (left . 1200)
-                          (top . 0)
-                          (width . 200)
-                          (height . 300)
-                          (font . "6x13")
-                          ))
-    (setq frame2 (make-frame frame2-params))
-    (select-frame frame2)
-    (gdb-set-window-buffer
-     (gdb-get-buffer-create 'gdb-inferior-io))
-    (split-window nil ( / (window-height) 3))
+  ;(if (eq gdb-frame2 nil)
+      (let (frame2-params)
+        (setq gdb-frame2-params '((name . "gdb-frame2")
+                                  (left . 1200)
+                                  (top . 0)
+                                  (width . 200)
+                                  (height . 300)
+                                  (font . "6x13")))
+        (setq gdb-frame2 (make-frame gdb-frame2-params)))
+    ;nil)
 
-    (other-window 1)
-    (split-window nil ( / (window-height) 2))
-    (gdb-set-window-buffer
-     (gdb-get-buffer-create 'gdb-assembler-buffer))
-    (split-window-horizontally)
-    (other-window 1)
-    (gdb-set-window-buffer
-     (gdb-get-buffer-create 'gdb-registers-buffer))
+  (select-frame gdb-frame2)
+  (gdb-set-window-buffer
+   (gdb-get-buffer-create 'gdb-inferior-io))
+  (split-window nil ( / (window-height) 3))
 
-    (other-window 1)
-    (gdb-set-window-buffer
-     (gdb-get-buffer-create 'gdb-threads-buffer))
-    (split-window-horizontally)
-    (other-window 1)
-    (gdb-set-window-buffer
-     (gdb-get-buffer-create 'gdb-breakpoints-buffer))
-    )
-  (message "GETBUFFER: %s" (gdb-get-buffer 'gdba))
-;  (switch-to-buffer (gdb-get-buffer 'gdba))
-)
+  (other-window 1)
+  (split-window nil ( / (window-height) 2))
+  (gdb-set-window-buffer
+   (gdb-get-buffer-create 'gdb-assembler-buffer))
+  (split-window-horizontally)
+  (other-window 1)
+  (gdb-set-window-buffer
+   (gdb-get-buffer-create 'gdb-registers-buffer))
+
+  (other-window 1)
+  (gdb-set-window-buffer
+   (gdb-get-buffer-create 'gdb-threads-buffer))
+  (split-window-horizontally)
+  (other-window 1)
+  (gdb-set-window-buffer
+   (gdb-get-buffer-create 'gdb-breakpoints-buffer))
+  ;(message "GETBUFFER: %s" (gdb-get-buffer 'gdba))
+  ;  (switch-to-buffer (gdb-get-buffer 'gdba))
+  )
+
 
 ; IDEA: Create Frame 1 in a new Frame too. Then I can always continue writing my code in my original setup, without having to use revbufs!
 ;       This may be difficult if gdb always wants to open in the original frame though...
@@ -79,6 +83,7 @@
 
 (add-hook 'gdb-mode-hook 'my-gdb-customization)
 
+;; FIXME: Add command to run 'start' in gdb
 ;; FIXME: Add a command to kill the debugger
 ;; FIXME: Will gdb-restore-windows work for my custom setup?
 ;;        -No, it doesn't. But maybe there's another hook that runs when I do restore-windows?
