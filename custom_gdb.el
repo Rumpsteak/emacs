@@ -1,10 +1,9 @@
-;; So, all we need to do now is to split the buffers properly.
-;; What is the difference between buffers and windows?
-
+(defvar gdb-frame1 nil)
 (defvar gdb-frame2 nil)
 
 (defun my-gdb-setup-windows ()
   "Adapted from `gdb-setup-windows'."
+  (setq gdb-frame1 (car (
   (gdb-display-locals-buffer)
   (gdb-display-stack-buffer)
 ;  (gdb-display-threads-buffer)
@@ -33,7 +32,6 @@
   (gdb-set-window-buffer (gdb-stack-buffer-name))
 
   ;;; Frame 2 ;;;
-  (message "gdb-frame2 = %s" gdb-frame2)
   (if (not (eq gdb-frame2 nil))
       ; Always destroy the old frame, if it exists
       ; (Pretty unnecessary - is there a better way to find whether its intact?
@@ -46,10 +44,11 @@
   ; Create frame 2
   (let (frame2-params)
     (setq gdb-frame2-params '((name . "gdb-frame2")
-                              (left . 1200)
+;                              (left . 1200)
+                              (left . 1920) ; right-align
                               (top . 0)
                               (width . 200)
-                              (height . 300)
+                              (height . 500) ; full-height. Better way?
                               (font . "6x13")))
         (setq gdb-frame2 (make-frame gdb-frame2-params)))
 
@@ -74,16 +73,12 @@
   (other-window 1)
   (gdb-set-window-buffer
    (gdb-get-buffer-create 'gdb-breakpoints-buffer))
-  ;(message "GETBUFFER: %s" (gdb-get-buffer 'gdba))
-  ;  (switch-to-buffer (gdb-get-buffer 'gdba))
+  ;(gdb-goto-gdb-buffer) ; Doesn't work, probably because frame2 is selected
   )
 
 
 ; IDEA: Create Frame 1 in a new Frame too. Then I can always continue writing my code in my original setup, without having to use revbufs!
 ;       This may be difficult if gdb always wants to open in the original frame though...
-;
-; IDEA: Create my own (my-gdb-restore-windows), that I can use when I have destroyed the window setup
-
 (defun my-gdb-customization ()
   (progn
     (setq gdb-use-separate-io-buffer t)
@@ -92,14 +87,39 @@
 
 (add-hook 'gdb-mode-hook 'my-gdb-customization)
 
-;; FIXME: Add command to run 'start' in gdb
-;; FIXME: Add a command to kill the debugger
-;; FIXME: Will gdb-restore-windows work for my custom setup?
-;;        -No, it doesn't. But maybe there's another hook that runs when I do restore-windows?
-;;         Hmm... doesn't look like there's anything like that.
-;;         Although I could of course create my own function that starts from a single buffer and then splits it as it wants to.
-
-(defun gdbwin ()
+(defun gdb-rebuild-windows ()
   (interactive)
   (my-gdb-setup-windows)
   )
+
+(defvar gdb-start-command "start\n")
+(defun gdb-set-start-command (arg)
+  (interactive "sStart command: ")
+  (setq gdb-start-command arg)
+  )
+
+; FIXME: Ask for start command the first time of the session?
+(defun gdb-start ()
+  (interactive)
+  (gud-call gdb-start-command))
+
+(defun gdb-kill ()
+  (interactive)
+  (gud-call "quit"))
+
+(defun gdb-goto-gdb-buffer ()
+  (interactive)
+  (switch-to-buffer (gdb-get-buffer 'gdba)))
+
+(global-set-key (kbd "C-<f1>") 'gdb-goto-gdb-buffer)
+(global-set-key (kbd "C-<f2>") 'gdb-start)
+(global-set-key (kbd "C-<f9>") 'gdb-rebuild-windows)
+(global-set-key (kbd "C-<f11>") 'gdb) ; Start entire gdb session
+(global-set-key (kbd "C-<f12>") 'gdb-kill)
+
+; TODO List
+;
+; FIXME: I/O sometimes not printed on the separate I/O buffer
+; FIXME: Get register info garbage in gdb-buffer
+; FIXME: 'compile no longer splits windows correctly
+; FIXME: Sometimes get multiple gdb-buffers ('gdba)
