@@ -5,13 +5,14 @@
   "Adapted from `gdb-setup-windows'."
   (gdb-display-locals-buffer)
   (gdb-display-stack-buffer)
+;  (gdb-display-threads-buffer)
   (delete-other-windows)
   (gdb-display-breakpoints-buffer)
   (delete-other-windows)
   ; Don't dedicate.
   (pop-to-buffer gud-comint-buffer)
   (split-window nil ( / ( * (window-height) 3) 4))
-  (split-window nil ( / (window-height) 3))
+  (split-window nil ( / (window-height) 4))
   (split-window-horizontally)
   (other-window 1)
   (gdb-set-window-buffer (gdb-locals-buffer-name))
@@ -25,53 +26,55 @@
            ;; can't find a source file.
            (list-buffers-noselect))))
   (setq gdb-source-window (selected-window))
-  ;; (when gdb-use-separate-io-buffer
-  ;;   (split-window-horizontally)
-  ;;   (other-window 1)
-  ;;   (gdb-set-window-buffer
-  ;;    (gdb-get-buffer-create 'gdb-inferior-io)))
-
-  ; We always want a separate I/O buffer
-  (split-window-horizontally)
-  (other-window 1)
-  (gdb-set-window-buffer
-   (gdb-get-buffer-create 'gdb-inferior-io))
 
   (other-window 1)
   (gdb-set-window-buffer (gdb-stack-buffer-name))
-  (split-window-horizontally)
-  (other-window 1)
-  (gdb-set-window-buffer (gdb-breakpoints-buffer-name))
-  (other-window 1)
+
+  ;;; Frame 2 ;;;
+  (let (frame2 frame2-params win)
+    (setq frame2-params '((name . "Hund")
+                          (left . 1200)
+                          (top . 0)
+                          (width . 200)
+                          (height . 300)
+                          (font . "6x13")
+                          ))
+    (setq frame2 (make-frame frame2-params))
+    (select-frame frame2)
+    (gdb-set-window-buffer
+     (gdb-get-buffer-create 'gdb-inferior-io))
+    (split-window nil ( / (window-height) 3))
+
+    (other-window 1)
+    (split-window nil ( / (window-height) 2))
+    (gdb-set-window-buffer
+     (gdb-get-buffer-create 'gdb-assembler-buffer))
+    (split-window-horizontally)
+    (other-window 1)
+    (gdb-set-window-buffer
+     (gdb-get-buffer-create 'gdb-registers-buffer))
+
+    (other-window 1)
+    (gdb-set-window-buffer
+     (gdb-get-buffer-create 'gdb-threads-buffer))
+    (split-window-horizontally)
+    (other-window 1)
+    (gdb-set-window-buffer
+     (gdb-get-buffer-create 'gdb-breakpoints-buffer))
+    )
+  (message "GETBUFFER: %s" (gdb-get-buffer 'gdba))
+;  (switch-to-buffer (gdb-get-buffer 'gdba))
 )
 
-
-; FIXME:
+; IDEA: Create Frame 1 in a new Frame too. Then I can always continue writing my code in my original setup, without having to use revbufs!
+;       This may be difficult if gdb always wants to open in the original frame though...
 ;
-; Frame 1
-; === GDB == Locals =====
-; ==== Source ===========
-; ==== Stack ===========
-;
-; Frame 2
-; === Threads === Breaks ===
-; === Assembler ===
-; === Registers ===
-; === I/O ===
-
-
+; IDEA: Create my own (my-gdb-restore-windows), that I can use when I have destroyed the window setup
 
 (defun my-gdb-customization ()
   (progn
-    ;; (gdb-display-locals-buffer)
-    ;; (gdb-display-stack-buffer)
-    ;; (gdb-display-threads-buffer)
-    ;; (gdb-display-assembler-buffer)
-    ;; (gdb-display-registers-buffer)
-    ;; (gdb-display-separate-io-buffer)
     (setq gdb-use-separate-io-buffer t)
     (my-gdb-setup-windows)
-    (message "Customizing GDB!1111!!!!!!!!!!!")
     ))
 
 (add-hook 'gdb-mode-hook 'my-gdb-customization)
@@ -82,22 +85,7 @@
 ;;         Hmm... doesn't look like there's anything like that.
 ;;         Although I could of course create my own function that starts from a single buffer and then splits it as it wants to.
 
-;; FIXME: Learn more about buffer / window handling.
-
-
-;; From gdb-ui.el:
-(defun DONTREDEFINE-gdb-display-buffer (buf dedicated &optional frame)
-  (let ((answer (get-buffer-window buf (or frame 0))))
-    (if answer
-	(display-buffer buf nil (or frame 0)) ;Deiconify the frame if necessary.
-      (let ((window (get-lru-window)))
-	(if (memq (buffer-local-value 'gud-minor-mode (window-buffer window))
-		  '(gdba gdbmi))
-	    (let* ((largest (get-largest-window))
-		   (cur-size (window-height largest)))
-	      (setq answer (split-window largest))
-	      (set-window-buffer answer buf)
-	      (set-window-dedicated-p answer dedicated)
-	      answer)
-	  (set-window-buffer window buf)
-	  window)))))
+(defun gdbwin ()
+  (interactive)
+  (my-gdb-setup-windows)
+  )
