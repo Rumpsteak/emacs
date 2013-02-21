@@ -1,9 +1,11 @@
 (defvar gdb-frame1 nil)
 (defvar gdb-frame2 nil)
 
+(defvar gdba-window nil)
+
 (defun my-gdb-setup-windows ()
   "Adapted from `gdb-setup-windows'."
-  (setq gdb-frame1 (car (
+  (setq gdb-frame1 (selected-frame))
   (gdb-display-locals-buffer)
   (gdb-display-stack-buffer)
 ;  (gdb-display-threads-buffer)
@@ -12,12 +14,20 @@
   (delete-other-windows)
   ; Don't dedicate.
   (pop-to-buffer gud-comint-buffer)
+  (setq gdba-window (selected-window))
+
+  (set-window-dedicated-p (selected-window) t)
   (split-window nil ( / ( * (window-height) 3) 4))
   (split-window nil ( / (window-height) 4))
   (split-window-horizontally)
+
   (other-window 1)
   (gdb-set-window-buffer (gdb-locals-buffer-name))
+  (set-window-dedicated-p (selected-window) t)
+
   (other-window 1)
+  ;(set-window-dedicated-p (selected-window) t)
+
   (switch-to-buffer
        (if gud-last-last-frame
            (gud-find-file (car gud-last-last-frame))
@@ -30,6 +40,7 @@
 
   (other-window 1)
   (gdb-set-window-buffer (gdb-stack-buffer-name))
+  ;(set-window-dedicated-p (selected-window) t)
 
   ;;; Frame 2 ;;;
   (if (not (eq gdb-frame2 nil))
@@ -73,9 +84,10 @@
   (other-window 1)
   (gdb-set-window-buffer
    (gdb-get-buffer-create 'gdb-breakpoints-buffer))
-  ;(gdb-goto-gdb-buffer) ; Doesn't work, probably because frame2 is selected
-  )
 
+  (select-frame gdb-frame1)
+  (gdb-goto-gdb-buffer) ; Doesn't work, probably because frame2 is selected
+  )
 
 ; IDEA: Create Frame 1 in a new Frame too. Then I can always continue writing my code in my original setup, without having to use revbufs!
 ;       This may be difficult if gdb always wants to open in the original frame though...
@@ -109,10 +121,15 @@
 
 (defun gdb-goto-gdb-buffer ()
   (interactive)
-  (switch-to-buffer (gdb-get-buffer 'gdba)))
+  (select-window gdba-window))
+
+(defun gdb-goto-source-buffer ()
+  (interactive)
+  (select-window gdb-source-window))
 
 (global-set-key (kbd "C-<f1>") 'gdb-goto-gdb-buffer)
-(global-set-key (kbd "C-<f2>") 'gdb-start)
+(global-set-key (kbd "C-<f2>") 'gdb-goto-source-buffer)
+(global-set-key (kbd "C-<f4>") 'gdb-start)
 (global-set-key (kbd "C-<f9>") 'gdb-rebuild-windows)
 (global-set-key (kbd "C-<f11>") 'gdb) ; Start entire gdb session
 (global-set-key (kbd "C-<f12>") 'gdb-kill)
@@ -120,6 +137,7 @@
 ; TODO List
 ;
 ; FIXME: I/O sometimes not printed on the separate I/O buffer
-; FIXME: Get register info garbage in gdb-buffer
+; FIXME: Get register info garbage in gdb-buffer (Also garbage in assembler buffer)
 ; FIXME: 'compile no longer splits windows correctly
-; FIXME: Sometimes get multiple gdb-buffers ('gdba)
+; FIXME: Maybe I could gain something from (set-window-dedicated-p) ?
+; FIXME: Integrate into main.el
