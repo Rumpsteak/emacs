@@ -33,16 +33,25 @@
   (gdb-set-window-buffer (gdb-stack-buffer-name))
 
   ;;; Frame 2 ;;;
-  ;(if (eq gdb-frame2 nil)
-      (let (frame2-params)
-        (setq gdb-frame2-params '((name . "gdb-frame2")
-                                  (left . 1200)
-                                  (top . 0)
-                                  (width . 200)
-                                  (height . 300)
-                                  (font . "6x13")))
+  (message "gdb-frame2 = %s" gdb-frame2)
+  (if (not (eq gdb-frame2 nil))
+      ; Always destroy the old frame, if it exists
+      ; (Pretty unnecessary - is there a better way to find whether its intact?
+      (progn
+        (message "Deleting frame 2")
+        (delete-frame gdb-frame2)
+        (setq gdb-frame2 nil))
+    nil)
+
+  ; Create frame 2
+  (let (frame2-params)
+    (setq gdb-frame2-params '((name . "gdb-frame2")
+                              (left . 1200)
+                              (top . 0)
+                              (width . 200)
+                              (height . 300)
+                              (font . "6x13")))
         (setq gdb-frame2 (make-frame gdb-frame2-params)))
-    ;nil)
 
   (select-frame gdb-frame2)
   (gdb-set-window-buffer
