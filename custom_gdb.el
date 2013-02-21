@@ -138,6 +138,4 @@
 ;
 ; FIXME: I/O sometimes not printed on the separate I/O buffer
 ; FIXME: Get register info garbage in gdb-buffer (Also garbage in assembler buffer)
-; FIXME: 'compile no longer splits windows correctly
 ; FIXME: Maybe I could gain something from (set-window-dedicated-p) ?
-; FIXME: Integrate into main.el

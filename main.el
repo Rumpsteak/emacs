@@ -135,7 +135,7 @@ FORCE-OTHER-WINDOW is ignored."
           (set-window-buffer new-win buffer)
           new-win))))
 
-;(setq display-buffer-function 'th-display-buffer) ;; FIXME - Restore?
+(setq display-buffer-function 'th-display-buffer) ;; FIXME - Restore?
 
 (setq-default show-trailing-whitespace t)
 ;; ;; To long lines
