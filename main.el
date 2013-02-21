@@ -245,3 +245,5 @@ FORCE-OTHER-WINDOW is ignored."
 
 ; scripting
 (global-set-key (kbd "C-x C-l") 'eval-buffer)
+
+(load-file "~/git/emacs/custom_gdb.el")
