@@ -135,7 +135,7 @@ FORCE-OTHER-WINDOW is ignored."
           (set-window-buffer new-win buffer)
           new-win))))
 
-(setq display-buffer-function 'th-display-buffer) ;; FIXME - Restore?
+(setq display-buffer-function 'th-display-buffer)
 
 (setq-default show-trailing-whitespace t)
 ;; ;; To long lines
@@ -222,7 +222,9 @@ FORCE-OTHER-WINDOW is ignored."
 ; cl-files
 (add-to-list 'auto-mode-alist '("\\.cl$" . c-mode))
 
-; GUD keys
+; GDB / GUD keys
+(load-file "~/git/emacs/custom_gdb.el")
+
 (global-set-key [f2] 'gud-up)
 (global-set-key [f3] 'gud-down)
 (global-set-key [f4] 'gud-print)
@@ -234,8 +236,6 @@ FORCE-OTHER-WINDOW is ignored."
 
 (global-set-key [f9] 'gud-cont)
 
-;(load-file "~/git/emacs/custom_gdb.el") ;; FIXME
-
 (global-set-key (kbd "C-<f6>") 'gud-nexti)
 (global-set-key (kbd "C-<f7>") 'gud-stepi)
 
@@ -245,5 +245,3 @@ FORCE-OTHER-WINDOW is ignored."
 
 ; scripting
 (global-set-key (kbd "C-x C-l") 'eval-buffer)
-
-(load-file "~/git/emacs/custom_gdb.el")

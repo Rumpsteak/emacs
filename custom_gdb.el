@@ -139,3 +139,6 @@
 ; FIXME: I/O sometimes not printed on the separate I/O buffer
 ; FIXME: Get register info garbage in gdb-buffer (Also garbage in assembler buffer)
 ; FIXME: Maybe I could gain something from (set-window-dedicated-p) ?
+; FIXME: Sometimes picks the wrong source buffer (Maybe need to protect all my buffers to avoid this?
+;        Or maybe need to not protect my source buffer so it can switch between several source files?)
+; FIXME: Create a better buffer layout for horizontal screens
