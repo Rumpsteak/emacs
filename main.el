@@ -245,3 +245,9 @@ FORCE-OTHER-WINDOW is ignored."
 
 ; scripting
 (global-set-key (kbd "C-x C-l") 'eval-buffer)
+
+; Navigation
+(global-set-key (kbd "M-p") 'windmove-up)
+(global-set-key (kbd "M-n") 'windmove-down)
+(global-set-key (kbd "M-b") 'windmove-left)
+(global-set-key (kbd "M-f") 'windmove-right)

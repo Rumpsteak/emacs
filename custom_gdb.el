@@ -93,7 +93,8 @@
 ;       This may be difficult if gdb always wants to open in the original frame though...
 (defun my-gdb-customization ()
   (progn
-    (setq gdb-use-separate-io-buffer t)
+    ;; FIXME: Why is this a problem
+    ;(setq gdb-use-separate-io-buffer t)
     (my-gdb-setup-windows)
     ))
 
