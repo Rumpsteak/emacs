@@ -70,7 +70,7 @@
 ;; Enable backup files.
 ;;(setq-default fill-column 120)
 
-(set-default-font "6x13")
+;(set-default-font "6x13")
 
 ;(add-to-list 'load-path "/usr/share/emacs/23.1/lisp" t)
 ;;(require 'go-mode-load)
@@ -223,7 +223,7 @@ FORCE-OTHER-WINDOW is ignored."
 (add-to-list 'auto-mode-alist '("\\.cl$" . c-mode))
 
 ; GDB / GUD keys
-(load-file "~/git/emacs/custom_gdb.el")
+;(load-file "~/git/emacs/custom_gdb.el")
 
 (global-set-key [f2] 'gud-up)
 (global-set-key [f3] 'gud-down)
@@ -251,3 +251,9 @@ FORCE-OTHER-WINDOW is ignored."
 (global-set-key (kbd "M-n") 'windmove-down)
 (global-set-key (kbd "M-b") 'windmove-left)
 (global-set-key (kbd "M-f") 'windmove-right)
+
+(global-set-key (kbd "C-<f12>") 'compile)
+
+
+; Unfill
+(load-file "~/git/emacs/unfill.el")
