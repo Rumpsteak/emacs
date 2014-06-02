@@ -210,7 +210,7 @@ FORCE-OTHER-WINDOW is ignored."
 ;(setq tramp-shell-prompt-pattern "eater-.+ ") ;; Shall match your prompt on release machines
 
 ; Taskjuggler
-(require 'taskjuggler-mode)
+;(require 'taskjuggler-mode)
 
 ;; Flex
 ;(add-to-list 'auto-mode-alist '("\\.l$" . flex-mode))

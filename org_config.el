@@ -1,5 +1,5 @@
 ;;(require 'org-install)
-(org-remember-insinuate)
+;(org-remember-insinuate)
 
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
