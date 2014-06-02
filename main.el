@@ -186,7 +186,17 @@ FORCE-OTHER-WINDOW is ignored."
 
 ; Fat highlighting of function calls
 (font-lock-add-keywords 'c-mode
-  '(("\\(\\w+\\)\\s-*\("
+  '(("\\(\\w+\\)\\s-*("
+    (1 font-lock-builtin-face)))
+  t)
+
+; Syntax info: http://emacswiki.org/emacs/RegularExpression
+; Note: Backslashes need to be escaped since we are building a string
+
+; Unescaped, as presented to regexp engine: \( \( \w\|\s_ \)+ \) \s-* (
+; <BEGINGROUP> <BEGINGROUP> WORDCONSTITUENT|SYMBOL <ENDGROUP>+ <ENDGROUP> <WHITESPACE>* LPAR
+(font-lock-add-keywords 'python-mode
+  '(("\\(\\(\\w\\|\\s_\\)+\\)\\s-*("
     (1 font-lock-builtin-face)))
   t)
 
