@@ -112,7 +112,11 @@
      ;; (font-lock-variable-name-face ((t (:foreground "Green"))))
      ;; (font-lock-warning-face ((t (:bold t :foreground "Pink"))))
 
-     (font-lock-builtin-face ((t (:bold t :foreground "#ffffff"))))
+;     (font-lock-builtin-face ((t (:bold t :underline t :foreground "#ffffff"))))
+
+
+     ;; OPTMIZED FOR C-MODE
+     (font-lock-builtin-face ((t (:bold t :underline nil :foreground "#ffffff"))))
      (font-lock-comment-face ((t (:foreground "IndianRed"))))
      (font-lock-constant-face ((t (:foreground "#6666dd"))))
      (font-lock-doc-string-face ((t (:foreground "DarkOrange"))))
@@ -125,6 +129,32 @@
      (font-lock-micke-face ((t (:foreground "#9999ff"))))
      (font-lock-variable-name-face ((t (:foreground "Green"))))
      (font-lock-warning-face ((t (:bold t :foreground "Pink"))))
+
+     ;; OPTMIZED FOR GO-MODE
+     ;; (font-lock-builtin-face ((t (:foreground "#dd55ff"))))
+     ;; (font-lock-comment-face ((t (:foreground "IndianRed"))))
+     ;; (font-lock-constant-face ((t (:foreground "#6666dd"))))
+     ;; (font-lock-doc-string-face ((t (:foreground "DarkOrange"))))
+     ;; (font-lock-function-name-face ((t (:foreground "#ffff00")))) ;; Function declaration or Method call (unfortunately)
+     ;; (font-lock-method-name-face ((t (:bold t :foreground "#ff0000"))))
+     ;; (font-lock-keyword-face ((t (:foreground "#dd55ff"))))
+     ;; (font-lock-preprocessor-face ((t (:foreground "Aquamarine"))))
+     ;; (font-lock-reference-face ((t (:foreground "SlateBlue"))))
+     ;; (font-lock-string-face ((t (:foreground "Orange"))))
+     ;; (font-lock-type-face ((t (:foreground "#00ff00"))))
+     ;; (font-lock-type-1-face ((t (:foreground "#ff0000"))))
+     ;; (font-lock-type-2-face ((t (:foreground "#0000ff"))))
+     ;; (font-lock-type-3-face ((t (:foreground "#ffff00"))))
+     ;; (font-lock-type-4-face ((t (:foreground "#00ffff"))))
+     ;; (font-lock-type-5-face ((t (:foreground "#ff00ff"))))
+     ;; (font-lock-type-6-face ((t (:foreground "#ff0000"))))
+     ;; (font-lock-type-7-face ((t (:foreground "#ff0000"))))
+     ;; (font-lock-type-8-face ((t (:foreground "#ff0000"))))
+     ;; (font-lock-type-9-face ((t (:foreground "#ff0000"))))
+     ;; (font-lock-type-10-face ((t (:foreground "#00ff00"))))
+     ;; (font-lock-micke-face ((t (:foreground "#9999ff"))))
+     ;; (font-lock-variable-name-face ((t (:foreground "Green"))))
+     ;; (font-lock-warning-face ((t (:bold t :foreground "Pink"))))
 
      (qt-classes-face ((t (:foreground "Red"))))
      (gnus-cite-attribution-face ((t (nil))))

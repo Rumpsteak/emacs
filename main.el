@@ -70,12 +70,13 @@
 ;; Enable backup files.
 ;;(setq-default fill-column 120)
 
-;(set-default-font "6x13")
+(set-default-font "6x13")
 
 ;(add-to-list 'load-path "/usr/share/emacs/23.1/lisp" t)
 ;;(require 'go-mode-load)
 
-(load-file "~/git/emacs/color_theme.el")
+;(load-file "~/git/emacs/color_theme.el")
+(load-file "~/git/emacs/colors_micke.el")
 
 (load-file "~/git/emacs/org_config.el")
 
@@ -147,8 +148,7 @@ FORCE-OTHER-WINDOW is ignored."
 ;(require 'git-blame)
 
 ;;; Prevent Extraneous Tabs
-(setq-default indent-tabs-mode nil)
-
+;(setq-default indent-tabs-mode nil)
 
 ;; Iswitchdb
 (require 'edmacro)
@@ -170,35 +170,6 @@ FORCE-OTHER-WINDOW is ignored."
 ;; Revbufs - reload all buffers from disk. Do not revert buffers with changes
 (require 'revbufs)
 ;(require 'ecb)
-
-(setq font-lock-maximum-decoration
-      '((c-mode . 3) (c++-mode . 3)))
-
-;; (font-lock-add-keywords 'c-mode
-;;                    '(("\\<\\([a-zA-Z_]*\\) *("  1 font-lock-builtin-face prepend)))
-;(font-lock-add-keywords 'c-mode
-;                   '(("\\<\\([a-zA-Z_]*\\) *("  1 font-lock-builtin-face prepend)))
-
-;; (font-lock-add-keywords 'c-mode
-;;   '(("\\(\\w+\\)\\s-*\("
-;;     (1 font-lock-builtin-face prepend)))
-;;   t)
-
-; Fat highlighting of function calls
-(font-lock-add-keywords 'c-mode
-  '(("\\(\\w+\\)\\s-*("
-    (1 font-lock-builtin-face)))
-  t)
-
-; Syntax info: http://emacswiki.org/emacs/RegularExpression
-; Note: Backslashes need to be escaped since we are building a string
-
-; Unescaped, as presented to regexp engine: \( \( \w\|\s_ \)+ \) \s-* (
-; <BEGINGROUP> <BEGINGROUP> WORDCONSTITUENT|SYMBOL <ENDGROUP>+ <ENDGROUP> <WHITESPACE>* LPAR
-(font-lock-add-keywords 'python-mode
-  '(("\\(\\(\\w\\|\\s_\\)+\\)\\s-*("
-    (1 font-lock-builtin-face)))
-  t)
 
 ; Javascript mode TEST
 ;a(add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
@@ -264,6 +235,14 @@ FORCE-OTHER-WINDOW is ignored."
 
 (global-set-key (kbd "C-<f12>") 'compile)
 
+; hs-minor-mode
+(global-set-key (kbd "C-<tab>") 'hs-toggle-hiding)
+(global-set-key (kbd "C--") 'hs-hide-all)
+(global-set-key (kbd "C-=") 'hs-show-all)
+
+(defun enable-hs-for-c ()
+  (hs-minor-mode))
+(add-hook 'c-mode-hook 'enable-hs-for-c)
 
 ; Unfill
 (load-file "~/git/emacs/unfill.el")
