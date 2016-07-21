@@ -75,8 +75,8 @@
 ;(add-to-list 'load-path "/usr/share/emacs/23.1/lisp" t)
 ;;(require 'go-mode-load)
 
-;(load-file "~/git/emacs/color_theme.el")
-(load-file "~/git/emacs/colors_micke.el")
+;; (load-file "~/git/emacs/colors_micke.el")
+(load-file "~/git/emacs/color_theme.el")
 
 (load-file "~/git/emacs/org_config.el")
 
@@ -179,12 +179,12 @@ FORCE-OTHER-WINDOW is ignored."
 
 (put 'downcase-region 'disabled nil)
 
-; Espresso mode for javascript
-(autoload #'espresso-mode "espresso" "Start espresso-mode" t)
-(add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
-(add-to-list 'auto-mode-alist '("\\.shtml$" . espresso-mode))
-(add-to-list 'auto-mode-alist '("\\.shtml.fpp$" . espresso-mode))
+;; ; Espresso mode for javascript
+;; (autoload #'espresso-mode "espresso" "Start espresso-mode" t)
+;; (add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
+;; (add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
+;; (add-to-list 'auto-mode-alist '("\\.shtml$" . espresso-mode))
+;; (add-to-list 'auto-mode-alist '("\\.shtml.fpp$" . espresso-mode))
 
 ; Tramp for ssh editing
 ;(require 'tramp)
@@ -246,3 +246,6 @@ FORCE-OTHER-WINDOW is ignored."
 
 ; Unfill
 (load-file "~/git/emacs/unfill.el")
+
+(add-to-list 'load-path "~/git/rust-mode")
+(require 'rust-mode)

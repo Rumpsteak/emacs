@@ -126,7 +126,7 @@
      (font-lock-reference-face ((t (:foreground "SlateBlue"))))
      (font-lock-string-face ((t (:foreground "Orange"))))
      (font-lock-type-face ((t (:foreground "#9999ff"))))
-     (font-lock-micke-face ((t (:foreground "#9999ff"))))
+     (font-lock-micke-face ((t (:foreground "#00ff00"))))
      (font-lock-variable-name-face ((t (:foreground "Green"))))
      (font-lock-warning-face ((t (:bold t :foreground "Pink"))))
 
@@ -258,7 +258,8 @@
      (p4-diff-ins-face ((t (:foreground "blue"))))
      (pointer ((t (nil))))
 ;     (primary-selection ((t (:background "#555500"))))
-     (primary-selection ((t (:background "#ffff00"))))
+;     (primary-selection ((t (:background "#ffff00"))))
+     (primary-selection ((t (:background "#ff00ff"))))
      (red ((t (:foreground "red"))))
 ;     (region ((t (:background "blue"))))
      (region ((t (:background "#0066cc"))))

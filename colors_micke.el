@@ -84,6 +84,40 @@
     (1 font-lock-function-call-face)))
   t)
 
+
+;; (font-lock-add-keywords
+;;    'latex-mode
+;;    `((,(concat "^\\s-*\\\\\\("
+;;                "\\(documentclass\\|\\(sub\\)?section[*]?\\)"
+;;                "\\(\\[[^]% \t\n]*\\]\\)?{[-[:alnum:]_ ]+"
+;;                "\\|"
+;;                "\\(begin\\|end\\){document"
+;;                "\\)}.*\n?")
+;;       (0 'micke-face append))))
+;; (font-lock-add-keywords 'latex-mode
+;;   '(("\\\\subsection\{\\w+\\)\\s-*("
+;;     (1 font-lock-micke-face)))
+;;   t)
+
+      ;;    ("\\(\\\\\\(begin\\|end\\){[a-zA-Z0-9\\*]+}\\)"
+      ;;     1 font-lock-function-name-face nil)
+
+;; (font-lock-add-keywords 'latex-mode
+;;   '(("\\(\\\\\\(.\\|[a-zA-Z@]+\\)\\)"
+;;     (1 font-lock-keyword-face nil)))
+;;   t)
+
+      ;;    ("\\\\def[\\\\@]\\([a-zA-Z@]+\\)"
+      ;;     1 font-lock-function-name-face t)
+
+      ;;    ("\\([^\\\\]\\|^\\)\\$\\([^$]*\\)\\$"
+      ;;     2 font-lock-string-face t)
+
+      ;;    ("\\\\\\[\\(\\([^]]\\|^\\)*\\)\\\\\\]"
+      ;;     1 font-lock-string-face t)))    
+
+
+
 (custom-theme-set-faces
  'mickenew
  '(default ((t (:family "fixed" :foundry "misc" :width semi-condensed :height 98 :weight normal :slant normal :underline nil :overline nil :strike-through nil :box nil :inverse-video nil :foreground "#dddddd" :background "black" :stipple nil :inherit nil))))
@@ -98,7 +132,7 @@
  '(secondary-selection ((t (:background "red"))))
  '(trailing-whitespace ((t (:background "#444444"))))
 
- ;; '(font-lock-builtin-face ((t (:weight bold :foreground "#ffffff" :underline nil))))
+ ;; '(font-lock-builtin-face ((t (:weight bold :foreground "#ffffff"))))
  ;; '(font-lock-comment-delimiter-face ((default (:inherit (font-lock-comment-face)))))
  ;; '(font-lock-comment-face ((t (:foreground "IndianRed"))))
  ;; '(font-lock-constant-face ((t (:foreground "#6666dd"))))
@@ -136,6 +170,11 @@
  '(font-lock-micke2-face ((t (:bold t :foreground "#0000ff"))))
  '(font-lock-micke3-face ((t (:bold t :foreground "#00ffff"))))
  '(font-lock-micke4-face ((t (:bold t :foreground "#ff00ff"))))
+
+ '(show-paren-match-face ((t (:background "Aquamarine" :foreground "SlateBlue"))))
+
+ '(font-latex-bold-face ((t (:inherit bold :foreground "White"))))
+ '(font-latex-italic-face ((t (:inherit italic :foreground "White" :slant italic))))
 
  '(button ((t (:inherit (link)))))
  '(link ((((class color) (min-colors 88) (background light)) (:underline (:color foreground-color :style line) :foreground "RoyalBlue3")) (((class color) (background light)) (:underline (:color foreground-color :style line) :foreground "blue")) (((class color) (min-colors 88) (background dark)) (:underline (:color foreground-color :style line) :foreground "cyan1")) (((class color) (background dark)) (:underline (:color foreground-color :style line) :foreground "cyan")) (t (:inherit (underline)))))
